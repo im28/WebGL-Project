@@ -17,7 +17,7 @@ npm start
 # Tasks
 A file has been created for each class in the project.
 We start by creating a skeleton of the class and then slowly add functionality 
-Find the sample file [here](WebGL/src/js/Light.js)
+Find the sample file [here](https://github.com/im28/WebGL-Project/blob/master/WebGL/src/js/Light.js)
 
 Group 3
 1. CHAI CHEAH WEN A17CS0028
