@@ -1,0 +1,2 @@
+C:\Users\ibrah\source\repos\OpenGL\OpenGLTransform\Debug\OpenGLTransform.vcxproj.CopyComplete
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Debug\OpenGLTransform.vcxproj.CopyComplete

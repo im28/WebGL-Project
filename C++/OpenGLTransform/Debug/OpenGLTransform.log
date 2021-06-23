@@ -1,0 +1,191 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(519,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (OpenGLTransform.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  UIPanel.cpp
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Primitives.h(182,1): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Primitives.h(230,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(290,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(294,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(295,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(296,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(298,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(299,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(300,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(302,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(303,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(304,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  WindowManager.cpp
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Primitives.h(182,1): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Primitives.h(230,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(290,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(294,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(295,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(296,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(298,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(299,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(300,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(302,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(303,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(304,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+C:\vcpkg\installed\x86-windows\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xstring(2468,23): warning C4244: 'argument': conversion from 'wchar_t' to 'const _Elem', possible loss of data
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xstring(2479): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xstring(2479): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xstring(2459): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xstring(2459): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\WindowManager.cpp(350): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\WindowManager.cpp(350): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+  main.cpp
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Primitives.h(182,1): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Primitives.h(230,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(290,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(294,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(295,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(296,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(298,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(299,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(300,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(302,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(303,36): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\ibrah\source\repos\OpenGL2\OpenGLTransform\Src\Mesh.h(304,20): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Generating Code...
+  OpenGLTransform.vcxproj -> C:\Users\ibrah\source\repos\OpenGL2\Debug\OpenGL2.exe
