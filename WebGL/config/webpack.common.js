@@ -52,7 +52,9 @@ module.exports = {
     }),
 
     // Prettier configuration
-    new PrettierPlugin(),
+    new PrettierPlugin({
+      extensions: [".js", ".ts"]
+    }),
   ],
 
   // Determine how modules within the project are treated
