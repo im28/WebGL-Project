@@ -20,7 +20,7 @@ const app = document.querySelector('#root')
 app.append(logo, heading)
 function main() {
   const canvas = document.querySelector('#canvas')
-  const gl = canvas.getContext('webgl')
+  const gl = canvas.getContext('webgl2')
   //   if (!gl) {
   //     return
   //   }

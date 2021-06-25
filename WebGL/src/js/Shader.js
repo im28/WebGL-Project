@@ -41,7 +41,7 @@ export class Shader {
       console.log(
         'program failed to link:' + this.gl.getProgramInfoLog(this.program)
       )
-      console.log(gl.getShaderInfoLog(vertexShader))
+      console.log(gl.getShaderInfoLog(fragmentShader))
     } else {
       console.log('program linked successfully')
     }
