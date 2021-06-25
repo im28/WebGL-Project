@@ -8,7 +8,6 @@ export class Shader {
 
     const vertexShader = gl.createShader(gl.VERTEX_SHADER)
     const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
-    const geometryShader = gl.createShader(gl.GEOMETRY_SHADER)
 
     gl.shaderSource(vertexShader, document.getElementById('vertex-shader').text)
     gl.compileShader(vertexShader)
@@ -20,15 +19,6 @@ export class Shader {
     )
     gl.compileShader(fragmentShader)
     this.gl.attachShader(this.program, fragmentShader)
-
-    if (document.getElementById('geometry-shader').text !== '') {
-      gl.shaderSource(
-        geometryShader,
-        document.getElementById('geometry-shader').text
-      )
-      gl.compileShader(geometryShader)
-      this.gl.attachShader(this.program, geometryShader)
-    }
 
     this.gl.linkProgram(this.program)
 
@@ -49,12 +39,8 @@ export class Shader {
     gl.detachShader(this.program, vertexShader)
     gl.detachShader(this.program, fragmentShader)
 
-    if (document.getElementById('geometry-shader').text !== '')
-      gl.detachShader(this.program, geometryShader)
-
     gl.deleteShader(vertexShader)
     gl.deleteShader(fragmentShader)
-    gl.deleteShader(geometryShader)
   }
 
   destructor() {
