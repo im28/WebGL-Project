@@ -285,7 +285,7 @@ export class Cylinder extends Primitive {
     let angle_stepsize = 0.1
 
     angle = 0.0
-    const pi = 3.14159265358979323846264338327950288
+    const pi = Math.PI
 
     let vertices = []
 
@@ -366,7 +366,7 @@ export class Vase extends Primitive {
     let maxcal = 100 // minimum and maximum diameter
     let height = 380 //define the height of the vase
     let step = height / this.vertical_levels
-    const pi = 3.14159265358979323846264338327950288
+    const pi = Math.PI
 
     let vertices = []
 
