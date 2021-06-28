@@ -2,6 +2,10 @@
 /* eslint-disable no-debugger, no-console */
 import { vec3, mat4 } from 'gl-matrix'
 
+Math.radians = function (degrees) {
+  return (degrees * Math.PI) / 180
+}
+
 export const DIRECTION = {
   FORWARD: 1,
   BACKWARD: 2,
@@ -12,41 +16,42 @@ export const DIRECTION = {
 }
 
 export class Camera {
-  constructor(position = vec3.zero, direction, worldUp = vec3.zero) {
-    this.ViewMatrix = mat4.identity
+  constructor(position = vec3.create(), worldUp = vec3.create()) {
+    this.ViewMatrix = mat4.create()
 
     this.movementSpeed = 5
     this.sensitivity = 40
 
     this.worldUp = worldUp
     this.position = position
-    this.front = vec3.zero
-    this.right = vec3.zero
+    this.front = vec3.create()
+    this.right = vec3.create()
     this.up = worldUp
 
     this.pitch = 0.0
     this.yaw = -90.0
     this.roll = 0.0
+    this.updateCameraVectors()
   }
 
   updateCameraVectors() {
-    this.front.x = Math.cos(Math.PI * this.yaw / 180.0) * Math.cos(Math.PI * this.pitch / 180.0)
-    this.front.y = Math.sin(Math.PI * this.pitch / 180.0)
-    this.front.z = Math.sin(Math.PI * this.yaw / 180.0) * Math.cos(Math.PI * this.pitch / 180.0)
-    const out = vec3.zero
-    this.front = vec3.normalize(this.front)
-    this.right = vec3.normalize(out, vec3.cross(out, this.front, this.worldUp))
-    this.up = vec3.normalize(out, vec3.cross(out, this.right, this.front))
+    this.front[0] = Math.cos(
+      Math.radians(this.yaw) * Math.cos(Math.radians(this.pitch))
+    )
+    this.front[1] = Math.sin(Math.radians(this.pitch))
+    this.front[2] = Math.sin(
+      Math.radians(this.yaw) * Math.cos(Math.radians(this.pitch))
+    )
+    const out = vec3.create()
+    vec3.normalize(this.front, this.front)
+    vec3.normalize(this.right, vec3.cross(out, this.front, this.worldUp))
+    vec3.normalize(this.up, vec3.cross(out, this.right, this.front))
   }
 
   getViewMatrix() {
     this.updateCameraVectors()
-    mat4.lookAt(
-      this.ViewMatrix,
-      this.position,
-      this.position + this.front,
-      this.up
-    )
+    const out = vec3.add(vec3.create(), this.position, this.front)
+    mat4.lookAt(this.ViewMatrix, this.position, out, this.up)
 
     return this.ViewMatrix
   }
@@ -90,7 +95,7 @@ export class Camera {
     if (this.yaw > 360.0 || this.yaw < -360.0) this.yaw = 0.0
   }
 
-  updateInput(dt, direction, offsetX, offsetY) {
+  updateInput(dt, offsetX, offsetY) {
     this.updateMouseInput(dt, offsetX, offsetY)
   }
 }
