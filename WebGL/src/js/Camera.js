@@ -30,9 +30,9 @@ export class Camera {
   }
 
   updateCameraVectors() {
-    this.front.x = Math.cos(this.yaw / 180.0) * Math.cos(this.pitch / 180.0)
-    this.front.y = Math.sin(this.pitch / 180.0)
-    this.front.z = Math.sin(this.yaw / 180.0) * Math.cos(this.pitch / 180.0)
+    this.front.x = Math.cos(Math.PI * this.yaw / 180.0) * Math.cos(Math.PI * this.pitch / 180.0)
+    this.front.y = Math.sin(Math.PI * this.pitch / 180.0)
+    this.front.z = Math.sin(Math.PI * this.yaw / 180.0) * Math.cos(Math.PI * this.pitch / 180.0)
     const out = vec3.zero
     this.front = vec3.normalize(this.front)
     this.right = vec3.normalize(out, vec3.cross(out, this.front, this.worldUp))
