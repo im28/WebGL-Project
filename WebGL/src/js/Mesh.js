@@ -1,4 +1,5 @@
 import { Vertex } from './Vertex'
+import { Primitive } from './Primitive'
 import { Shader } from './Shader'
 import { mat4, vec3 } from 'gl-matrix'
 export class Mesh {
@@ -23,6 +24,16 @@ export class Mesh {
     /** @type {WebGL2RenderingContext} */
     this.gl = gl
     this.initVAO()
+  }
+  /**
+   * @param {Primitive} primitive
+   * @param {vec3} position
+   * @param {vec3} origin
+   * @param {vec3} rotation
+   * @param {vec3} scale
+   */
+  static PrimitiveConstructor(primitive, position, origin, rotation, scale, gl){
+    return new Mesh(primitive.vertices,position, origin, rotation, scale, gl);
   }
   initVAO() {
     this.vao = this.gl.createVertexArray()
