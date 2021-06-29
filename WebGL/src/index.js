@@ -7,6 +7,7 @@ import webpackLogo from '@/images/webpack-logo.svg'
 // Test import of styles
 import '@/styles/index.scss'
 import { Shader } from './js/Shader'
+import { ui_panel } from './js/UI'
 
 // Appending to the DOM
 const logo = document.createElement('img')
@@ -28,5 +29,9 @@ function main() {
   //   console.log(size)
   const testing = new Shader(1, 1, gl)
   testing.set1f('asd', 1.0)
+
+  const uipanel = new ui_panel()
+  uipanel.Display()
 }
+1
 main()
