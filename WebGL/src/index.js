@@ -7,6 +7,7 @@ import webpackLogo from '@/images/webpack-logo.svg'
 // Test import of styles
 import '@/styles/index.scss'
 import { WindowManager } from './js/WindowManger'
+import { ui_panel } from './js/UI'
 
 // Appending to the DOM
 const logo = document.createElement('img')
