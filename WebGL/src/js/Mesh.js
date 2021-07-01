@@ -74,16 +74,16 @@ export class Mesh {
       )
     }
     // Position
-    this.gl.vertexAttribPointer(0, 3, this.gl.MEDIUM_FLOAT, false, 0, 0)
+    this.gl.vertexAttribPointer(0, 3, this.gl.FLOAT, false, 0, 0)
     this.gl.enableVertexAttribArray(0)
     // Color
-    this.gl.vertexAttribPointer(1, 3, this.gl.MEDIUM_FLOAT, false, 0, 0)
+    this.gl.vertexAttribPointer(1, 3, this.gl.FLOAT, false, 0, 0)
     this.gl.enableVertexAttribArray(1)
     // Texcoord
-    this.gl.vertexAttribPointer(2, 2, this.gl.MEDIUM_FLOAT, false, 0, 0)
+    this.gl.vertexAttribPointer(2, 2, this.gl.FLOAT, false, 0, 0)
     this.gl.enableVertexAttribArray(2)
     // Normal
-    this.gl.vertexAttribPointer(3, 3, this.gl.MEDIUM_FLOAT, false, 0, 0)
+    this.gl.vertexAttribPointer(3, 3, this.gl.FLOAT, false, 0, 0)
     this.gl.enableVertexAttribArray(3)
     // BIND VAO 0
     this.gl.bindVertexArray(null)
@@ -131,7 +131,7 @@ export class Mesh {
 
     this.gl.bindVertexArray(null)
     this.gl.useProgram(null)
-    this.gl.activeTexture(null)
+    // this.gl.activeTexture(0)
     this.gl.bindTexture(this.gl.TEXTURE_2D, null)
   }
 }

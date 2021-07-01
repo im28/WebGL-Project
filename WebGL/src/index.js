@@ -23,7 +23,8 @@ function main() {
   const gl = canvas.getContext('webgl2')
 
   const testing = new WindowManager('title', 500, 500, false, gl)
-  testing.render()
+  testing.update(0)
+
   // testing.initOpenGLOptions()
 }
 main()
