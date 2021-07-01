@@ -1,9 +1,6 @@
 export class Shader {
-  constructor(versionMajor, versionMinor, gl) {
-    this.versionMajor = versionMajor
-    this.versionMinor = versionMinor
+  constructor(gl) {
     this.gl = gl
-
     this.program = this.gl.createProgram()
 
     const vertexShader = gl.createShader(gl.VERTEX_SHADER)

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
 
-  <body>
-    <div id="root"></div>
-    <canvas id="canvas"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
 
-    <!-- temporary dummy to test the shader class, incompabitlity with OpenGL's version -->
-    <script id="vertex-shader" type="x-shader/x-vertex">#version 300 es
+<body>
+  <div id="root"></div>
+  <canvas id="canvas"></canvas>
+
+  <script id="vertex-shader" type="x-shader/x-vertex">#version 300 es
       
       layout(location = 0) in vec3 vertex_position;
       layout(location = 1) in vec3 vertex_color;
@@ -39,7 +39,7 @@
       }
     </script>
 
-    <script id="fragment-shader" type="x-shader/x-fragment">#version 300 es
+  <script id="fragment-shader" type="x-shader/x-fragment">#version 300 es
       precision mediump float;
       
       struct Material
@@ -130,5 +130,6 @@
           (vec4(ambientFinal, 1.f) + vec4(diffuseFinal, 1.f) + vec4(specularFinal, 1.f));*/
       }
     </script>
-  </body>
+</body>
+
 </html>
