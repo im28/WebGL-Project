@@ -1,9 +1,13 @@
 import { mat4, vec3 } from 'gl-matrix'
 import t1 from '@/images/container.png'
 import t2 from '@/images/container_specular.png'
+import t3 from '@/images/Floor.png'
+import t4 from '@/images/FloorSpec.png'
+import t5 from '@/images/pusheen.png'
+import t6 from '@/images/pusheen_specular.png'
 
 import { Shader } from './Shader'
-import { Camera } from './Camera'
+import { Camera, DIRECTION } from './Camera'
 import { Texture } from './Texture'
 import { Material } from './Material'
 import { Quad, Pyramid } from './Primitive'
@@ -42,10 +46,10 @@ export class WindowManager {
     this.mouseOffsetY = 0.0
     this.firstMouse = true
 
-    //  s = ExePath();
-    // const std::string path(s.begin(), s.end());
+    document.addEventListener('keydown', (e) => {
+      this.updateKeyboardInput(e)
+    })
 
-    this.sourcePath = '\\..\\OpenGLTransform\\Src\\'
     this.initOpenGLOptions()
     // this.initMatrices()
     this.initShaders()
@@ -98,23 +102,16 @@ export class WindowManager {
   }
 
   initTextures() {
-    // const t1 = this.sourcePath + 'Images/container.png'
-    // const t2 = this.sourcePath + 'Images/container_specular.png'
-    // const t3 = this.sourcePath + 'Images/Floor.png'
-    // const t4 = this.sourcePath + 'Images/FloorSpec.png'
-    // const t5 = this.sourcePath + 'Images/pusheen.png'
-    // const t6 = this.sourcePath + 'Images/pusheen_specular.png'
-
     /** @type {Texture[]} */
     this.textures = []
     this.textures.push(new Texture(t1, this.gl.TEXTURE_2D, this.gl))
     this.textures.push(new Texture(t2, this.gl.TEXTURE_2D, this.gl))
 
-    this.textures.push(new Texture(t1, this.gl.TEXTURE_2D, this.gl))
-    this.textures.push(new Texture(t2, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t3, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t4, this.gl.TEXTURE_2D, this.gl))
 
-    this.textures.push(new Texture(t1, this.gl.TEXTURE_2D, this.gl))
-    this.textures.push(new Texture(t2, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t5, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t6, this.gl.TEXTURE_2D, this.gl))
   }
 
   initMaterials() {
@@ -296,10 +293,41 @@ export class WindowManager {
     }
   }
 
+  updateKeyboardInput(e) {
+    if (e.key === 'w') {
+      this.camera.move(this.dt, DIRECTION.FORWARD)
+    }
+    if (e.key === 's') {
+      this.camera.move(this.dt, DIRECTION.BACKWARD)
+    }
+    if (e.key === 'a') {
+      this.camera.move(this.dt, DIRECTION.LEFT)
+    }
+    if (e.key === 'd') {
+      this.camera.move(this.dt, DIRECTION.RIGHT)
+    }
+    if (e.key === 'c') {
+      this.camera.move(this.dt, DIRECTION.UP)
+    }
+    if (e.key === 'v') {
+      this.camera.move(this.dt, DIRECTION.DOWN)
+    }
+  }
+
+  update(dt) {
+    // console.log(this.dt)
+    this.curTime = dt
+    this.dt = this.curTime - this.lastTime
+    this.lastTime = this.curTime
+    this.render()
+    requestAnimationFrame((d) => {
+      this.update(d)
+    })
+  }
+
   render() {
     this.resizeWindow()
 
-    /** @type {WebGL2RenderingContext} */
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0)
     this.gl.clear(
       this.gl.COLOR_BUFFER_BIT,
@@ -324,7 +352,7 @@ export class WindowManager {
     // glBindVertexArray(0);
     this.gl.bindVertexArray(null)
     this.gl.useProgram(null)
-    this.gl.activeTexture(null)
+    // this.gl.activeTexture(null)
     this.gl.bindTexture(this.gl.TEXTURE_2D, null)
   }
 

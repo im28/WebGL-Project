@@ -63,22 +63,52 @@ export class Camera {
   move(dt, direction) {
     switch (direction) {
       case DIRECTION.FORWARD:
-        this.position += this.front * this.movementSpeed * dt
+        vec3.scaleAndAdd(
+          this.position,
+          this.position,
+          this.front,
+          this.movementSpeed * dt
+        )
         break
       case DIRECTION.BACKWARD:
-        this.position -= this.front * this.movementSpeed * dt
+        vec3.scaleAndAdd(
+          this.position,
+          this.position,
+          this.front,
+          this.movementSpeed * dt
+        )
         break
       case DIRECTION.LEFT:
-        this.position -= this.right * this.movementSpeed * dt
+        vec3.scaleAndAdd(
+          this.position,
+          this.position,
+          this.right,
+          this.movementSpeed * dt
+        )
         break
       case DIRECTION.RIGHT:
-        this.position += this.right * this.movementSpeed * dt
+        vec3.scaleAndAdd(
+          this.position,
+          this.position,
+          this.right,
+          this.movementSpeed * dt
+        )
         break
       case DIRECTION.UP:
-        this.position += this.up * this.movementSpeed * dt
+        vec3.scaleAndAdd(
+          this.position,
+          this.position,
+          this.up,
+          this.movementSpeed * dt
+        )
         break
       case DIRECTION.DOWN:
-        this.position -= this.up * this.movementSpeed * dt
+        vec3.scaleAndAdd(
+          this.position,
+          this.position,
+          this.up,
+          this.movementSpeed * dt
+        )
         break
       default:
         break

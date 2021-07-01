@@ -13,14 +13,14 @@ export class Texture {
     this.image.src = url
     this.callback = () => {
       gl.bindTexture(gl.TEXTURE_2D, this.texture)
-      gl.texParameteri(this.type, gl.TEXTURE_WRAP_S, gl.REPEAT)
-      gl.texParameteri(this.type, gl.TEXTURE_WRAP_T, gl.REPEAT)
+      gl.texParameteri(this.type, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+      gl.texParameteri(this.type, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
       gl.texParameteri(
         this.type,
-        gl.TEXTURE_MAG_FILTER,
-        gl.LINEAR_MIPMAP_NEAREST
+        gl.TEXTURE_MIN_FILTER,
+        gl.LINEAR_MIPMAP_LINEAR
       )
-      gl.texParameteri(this.type, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+      gl.texParameteri(this.type, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
       gl.texImage2D(
         gl.TEXTURE_2D,
         0,
