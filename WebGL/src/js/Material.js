@@ -8,9 +8,9 @@ export class Material {
   }
 
   sendToShader(program) {
-    program.setVec3f(this.ambient, 'material.ambient')
-    program.setVec3f(this.diffuse, 'material.diffuse')
-    program.setVec3f(this.specular, 'material.specular')
+    program.set3fv(this.ambient, 'material.ambient')
+    program.set3fv(this.diffuse, 'material.diffuse')
+    program.set3fv(this.specular, 'material.specular')
     program.set1i(this.diffuseTex, 'material.diffuseTex')
     program.set1i(this.specularTex, 'material.specularTex')
   }
