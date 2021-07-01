@@ -32,8 +32,15 @@ export class Mesh {
    * @param {vec3} rotation
    * @param {vec3} scale
    */
-  static PrimitiveConstructor(primitive, position, origin, rotation, scale, gl){
-    return new Mesh(primitive.vertices,position, origin, rotation, scale, gl);
+  static PrimitiveConstructor(
+    primitive,
+    position,
+    origin,
+    rotation,
+    scale,
+    gl
+  ) {
+    return new Mesh(primitive.vertices, position, origin, rotation, scale, gl)
   }
   initVAO() {
     this.vao = this.gl.createVertexArray()
