@@ -1,5 +1,6 @@
 export class Shader {
   constructor(gl) {
+    /** @type {WebGL2RenderingContext} */
     this.gl = gl
     this.program = this.gl.createProgram()
 

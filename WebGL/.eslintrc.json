@@ -29,6 +29,7 @@
     "func-names": [1, "as-needed"],
     "arrow-body-style": 1,
     "semi": [1, "never"],
+    "jsdoc/no-undefined-types": 1,
     "import/no-extraneous-dependencies": ["off", { "devDependencies": false }]
   },
   "env": {
@@ -44,7 +45,7 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier","jsdoc"],
   "settings": {
     "import/resolver": {
       "webpack": {

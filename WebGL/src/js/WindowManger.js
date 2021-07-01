@@ -1,8 +1,12 @@
 import { mat4, vec3 } from 'gl-matrix'
+import t1 from '@/images/container.png'
+import t2 from '@/images/container_specular.png'
+
 import { Shader } from './Shader'
+import { Camera } from './Camera'
 import { Texture } from './Texture'
 import { Material } from './Material'
-import { Triangle, Quad, Pyramid, Cube, Cylinder, Vase } from './Primitive'
+import { Quad, Pyramid } from './Primitive'
 import { Mesh } from './Mesh'
 import { Model } from './Model'
 import { Light } from './Light'
@@ -11,14 +15,16 @@ import { UI } from './UI'
 export class WindowManager {
   constructor(title, WINDOW_WIDTH, WINDOW_HEIGHT, resizable, gl) {
     // initialize the variables
+    /** @type {WebGL2RenderingContext} */
     this.gl = gl
     this.window = null
     this.framebufferWidth = WINDOW_WIDTH
     this.framebufferHeight = WINDOW_HEIGHT
 
-    this.camPosition = vec3.fromValues(0.0, 0.0, 10.0)
+    this.camPosition = vec3.fromValues(0.0, 0.0, 1.0)
     this.worldUp = vec3.fromValues(0.0, 1.0, 0.0)
     this.camFront = vec3.fromValues(0.0, 0.0, -1.0)
+    this.camera = new Camera(this.camPosition, this.worldUp)
 
     this.fov = 90.0
     this.nearPlane = 0.1
@@ -43,9 +49,8 @@ export class WindowManager {
     this.initOpenGLOptions()
     // this.initMatrices()
     this.initShaders()
-    // this.initTextures()
-    // this.initMaterials()
-    // this.initOBJModels()
+    this.initTextures()
+    this.initMaterials()
     this.initModels()
     // this.initLights()
     // this.initUniforms()
@@ -64,16 +69,14 @@ export class WindowManager {
   }
 
   initMatrices() {
-    this.ViewMatrix = mat4(1.0)
-    this.ViewMatrix = mat4.lookAt(
-      this.camPosition,
-      this.camPosition + this.camFront,
-      this.worldUp
-    )
+    this.ViewMatrix = mat4.create()
+    const out = vec3.add(vec3.create(), this.camPosition, this.camFront)
+    mat4.lookAt(this.ViewMatrix, this.camPosition, out, this.worldUp)
 
-    this.ProjectionMatrix = mat4(1.0)
-    this.ProjectionMatrix = mat4.perspective(
-      this.fov * (Math.PI / 180),
+    this.ProjectionMatrix = mat4.create()
+    mat4.perspective(
+      this.ProjectionMatrix,
+      Math.radians(this.fov),
       this.framebufferWidth / this.framebufferHeight,
       this.nearPlane,
       this.farPlane
@@ -95,32 +98,56 @@ export class WindowManager {
   }
 
   initTextures() {
-    const t1 = this.sourcePath + 'Images/container.png'
-    const t2 = this.sourcePath + 'Images/container_specular.png'
-    const t3 = this.sourcePath + 'Images/Floor.png'
-    const t4 = this.sourcePath + 'Images/FloorSpec.png'
-    const t5 = this.sourcePath + 'Images/pusheen.png'
-    const t6 = this.sourcePath + 'Images/pusheen_specular.png'
+    // const t1 = this.sourcePath + 'Images/container.png'
+    // const t2 = this.sourcePath + 'Images/container_specular.png'
+    // const t3 = this.sourcePath + 'Images/Floor.png'
+    // const t4 = this.sourcePath + 'Images/FloorSpec.png'
+    // const t5 = this.sourcePath + 'Images/pusheen.png'
+    // const t6 = this.sourcePath + 'Images/pusheen_specular.png'
 
     /** @type {Texture[]} */
     this.textures = []
-    this.textures.push(new Texture(t1, this.gl.TEXTURE_2D))
-    this.textures.push(new Texture(t2, this.gl.TEXTURE_2D))
+    this.textures.push(new Texture(t1, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t2, this.gl.TEXTURE_2D, this.gl))
 
-    this.textures.push(new Texture(t3, this.gl.TEXTURE_2D))
-    this.textures.push(new Texture(t4, this.gl.TEXTURE_2D))
+    this.textures.push(new Texture(t1, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t2, this.gl.TEXTURE_2D, this.gl))
 
-    this.textures.push(new Texture(t5, this.gl.TEXTURE_2D))
-    this.textures.push(new Texture(t6, this.gl.TEXTURE_2D))
+    this.textures.push(new Texture(t1, this.gl.TEXTURE_2D, this.gl))
+    this.textures.push(new Texture(t2, this.gl.TEXTURE_2D, this.gl))
   }
 
   initMaterials() {
     /** @type {Material[]} */
     this.materials = []
 
-    this.materials.push(new Material(0.5, vec3(1.0), vec3(1.0), 0.0, 1.0))
-    this.materials.push(new Material(0.5, vec3(1.0), vec3(1.0), 0.0, 1.0))
-    this.materials.push(new Material(0.5, vec3(1.0), vec3(1.0), 0.0, 1.0))
+    this.materials.push(
+      new Material(
+        vec3.fromValues(0.5, 0.5, 0.5),
+        vec3.create(),
+        vec3.create(),
+        0,
+        1
+      )
+    )
+    this.materials.push(
+      new Material(
+        vec3.fromValues(0.5, 0.5, 0.5),
+        vec3.create(),
+        vec3.create(),
+        0,
+        1
+      )
+    )
+    this.materials.push(
+      new Material(
+        vec3.fromValues(0.5, 0.5, 0.5),
+        vec3.create(),
+        vec3.create(),
+        0,
+        1
+      )
+    )
   }
 
   initModels() {
@@ -137,7 +164,8 @@ export class WindowManager {
         vec3.fromValues(1.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(1.0, 1.0, 1.0)
+        vec3.fromValues(1.0, 1.0, 1.0),
+        this.gl
       )
     )
 
@@ -147,7 +175,8 @@ export class WindowManager {
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(1.0, 1.0, 1.0)
+        vec3.fromValues(1.0, 1.0, 1.0),
+        this.gl
       )
     )
 
@@ -157,7 +186,8 @@ export class WindowManager {
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(-90.0, 0.0, 0.0),
-        vec3.fromValues(100.0, 100.0, 100.0)
+        vec3.fromValues(100.0, 100.0, 100.0),
+        this.gl
       )
     )
 
@@ -167,7 +197,8 @@ export class WindowManager {
         vec3.fromValues(1.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(1.0, 1.0, 1.0)
+        vec3.fromValues(1.0, 1.0, 1.0),
+        this.gl
       )
     )
 
@@ -217,7 +248,7 @@ export class WindowManager {
   initPointLights() {
     /** @type {Light[]} */
     this.pointLights = []
-    this.pointLights.push(new Light(vec3(0.0)))
+    this.pointLights.push(new Light(vec3.create()))
   }
 
   initLights() {
@@ -235,18 +266,19 @@ export class WindowManager {
   }
 
   updateUniforms() {
-    //Update view matrix (camera)
+    // Update view matrix (camera)
     this.ViewMatrix = this.camera.getViewMatrix()
 
     this.shaders[0].setMat4fv(this.ViewMatrix, 'ViewMatrix')
-    this.shaders[0].setVec3f(this.camera.getPosition(), 'cameraPos')
+    this.shaders[0].set3fv(this.camera.getPosition(), 'cameraPos')
 
     this.pointLights.forEach((pl) => {
       pl.sendToShader(this.shaders[0])
     })
 
-    this.ProjectionMatrix = mat4.perspective(
-      this.fov * (Math.PI / 180),
+    mat4.perspective(
+      this.ProjectionMatrix,
+      Math.radians(this.fov),
       this.framebufferWidth / this.framebufferHeight,
       this.nearPlane,
       this.farPlane
@@ -263,6 +295,7 @@ export class WindowManager {
       this.gl.canvas.height = height
     }
   }
+
   render() {
     this.resizeWindow()
 
