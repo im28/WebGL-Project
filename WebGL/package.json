@@ -51,6 +51,7 @@
     "url": "git@github.com:taniarascia/webpack-boilerplate"
   },
   "dependencies": {
+    "blend4web": "^18.5.0",
     "dat.gui": "^0.7.7",
     "gl-matrix": "^3.3.0"
   }

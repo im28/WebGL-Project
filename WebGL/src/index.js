@@ -6,8 +6,7 @@ import webpackLogo from '@/images/webpack-logo.svg'
 
 // Test import of styles
 import '@/styles/index.scss'
-import { Shader } from './js/Shader'
-import { ui_panel } from './js/UI'
+import { WindowManager } from './js/WindowManger'
 
 // Appending to the DOM
 const logo = document.createElement('img')
@@ -22,16 +21,9 @@ app.append(logo, heading)
 function main() {
   const canvas = document.querySelector('#canvas')
   const gl = canvas.getContext('webgl2')
-  //   if (!gl) {
-  //     return
-  //   }
-  //   const size = 2
-  //   console.log(size)
-  const testing = new Shader(1, 1, gl)
-  testing.set1f('asd', 1.0)
 
-  const uipanel = new ui_panel()
-  uipanel.Display()
+  const testing = new WindowManager('title', 500, 500, false, gl)
+  testing.initOpenGLOptions()
 }
 1
 main()

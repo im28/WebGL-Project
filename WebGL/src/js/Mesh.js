@@ -93,23 +93,27 @@ export class Mesh {
    * @param {Shader} shader
    */
   render(shader) {
-    this.updateModelMatrix();
-    this.updateUniforms(shader);
-    
-    shader.use();
+    this.updateModelMatrix()
+    this.updateUniforms(shader)
+
+    shader.use()
 
     this.gl.bindVertexArray(this.vao)
 
     if (this.indexArray.length == 0) {
-        this.gl.drawArrays(this.gl.TRIANGLE_STRIP,0,this.vertexArray.length);
+      this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, this.vertexArray.length)
     } else {
-        this.gl.drawArrays(this.gl.TRIANGLES,this.indexArray.length,this.gl.UNSIGNED_INT,0);
+      this.gl.drawArrays(
+        this.gl.TRIANGLES,
+        this.indexArray.length,
+        this.gl.UNSIGNED_INT,
+        0
+      )
     }
 
-    this.gl.bindVertexArray(null);
-    this.gl.useProgram(null);
-    this.gl.activeTexture(null);
-    this.gl.bindTexture(this.gl.TEXTURE_2D,null);
-
+    this.gl.bindVertexArray(null)
+    this.gl.useProgram(null)
+    this.gl.activeTexture(null)
+    this.gl.bindTexture(this.gl.TEXTURE_2D, null)
   }
 }
