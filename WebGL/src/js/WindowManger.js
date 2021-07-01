@@ -6,6 +6,7 @@ import { Triangle, Quad, Pyramid, Cube, Cylinder, Vase } from './Primitive'
 import { Mesh } from './Mesh'
 import { Model } from './Model'
 import { Light } from './Light'
+import { UI } from './UI'
 
 export class WindowManager {
   constructor(title, WINDOW_WIDTH, WINDOW_HEIGHT, resizable, gl) {
@@ -37,21 +38,21 @@ export class WindowManager {
 
     //  s = ExePath();
     // const std::string path(s.begin(), s.end());
+
     this.sourcePath = '\\..\\OpenGLTransform\\Src\\'
     this.initOpenGLOptions()
-    this.initMatrices()
+    // this.initMatrices()
     this.initShaders()
-    this.initTextures()
-    this.initMaterials()
-    this.initOBJModels()
+    // this.initTextures()
+    // this.initMaterials()
+    // this.initOBJModels()
     this.initModels()
-    this.initLights()
-    this.initUniforms()
+    // this.initLights()
+    // this.initUniforms()
   }
 
   initOpenGLOptions() {
     this.gl.enable(this.gl.DEPTH_TEST)
-
     this.gl.enable(this.gl.CULL_FACE)
     this.gl.cullFace(this.gl.BACK)
     this.gl.frontFace(this.gl.CCW)
@@ -59,7 +60,7 @@ export class WindowManager {
     this.gl.enable(this.gl.BLEND)
     this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA)
 
-    this.gl.polygonMode(this.gl.FRONT_AND_BACK, this.gl.FILL)
+    // this.gl.polygonMode(this.gl.FRONT_AND_BACK, this.gl.FILL)
   }
 
   initMatrices() {
@@ -83,6 +84,14 @@ export class WindowManager {
     /** @type {Shader[]} */
     this.shaders = []
     this.shaders.push(new Shader(this.gl))
+
+    this.UI_panels = []
+    this.UI_panels.push(new UI())
+    this.UI_panels.push(new UI())
+
+    this.UI_panels.forEach((m) => {
+      m.Display()
+    })
   }
 
   initTextures() {
@@ -193,9 +202,16 @@ export class WindowManager {
         meshes3
       )
     )
-    // TODO Wait for goh
-    // UI_panels.push(new ui_panel(models[2], "Quad", textures[4], textures[5]));
-    // UI_panels.push(new ui_panel(models[1], "Ground Plane", textures[4], textures[5]));
+
+    // UI_panels.push(new ui_panel(models[2], 'Quad', textures[4], textures[5]))
+    // UI_panels.push(new ui_panel(models[1], 'Ground Plane', textures[4], textures[5]))
+
+    /** @type {UI[]} */
+    this.UI_panels = []
+    this.UI_panels.push(new UI(models[2], 'Quad', textures[4], textures[5]))
+    this.UI_panels.push(
+      new UI(models[1], 'Ground Plane', textures[4], textures[5])
+    )
   }
 
   initPointLights() {
