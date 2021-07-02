@@ -12,8 +12,18 @@ export class Mesh {
    * @param {vec3} origin
    * @param {vec3} rotation
    * @param {vec3} scale
+   * @param {Shader} shader
    */
-  constructor(vertexArray, indexArray, position, origin, rotation, scale, gl) {
+  constructor(
+    vertexArray,
+    indexArray,
+    position,
+    origin,
+    rotation,
+    scale,
+    gl,
+    shader
+  ) {
     this.ModelMatrix = mat4.create()
     this.position = position
     this.origin = origin
@@ -24,7 +34,7 @@ export class Mesh {
     this.indexArray = indexArray
     /** @type {WebGL2RenderingContext} */
     this.gl = gl
-    this.initVAO()
+    this.initVAO(shader)
   }
 
   /**
@@ -33,6 +43,7 @@ export class Mesh {
    * @param {vec3} origin
    * @param {vec3} rotation
    * @param {vec3} scale
+   * @param {Shader} shader
    */
   static PrimitiveConstructor(
     primitive,
@@ -40,20 +51,33 @@ export class Mesh {
     origin,
     rotation,
     scale,
-    gl
+    gl,
+    shader
   ) {
+    const vertexArray = new Float32Array(
+      primitive.vertices.flatMap((v) => [
+        ...v.position,
+        ...v.color,
+        ...v.texcoord,
+        ...v.normal,
+      ])
+    )
     return new Mesh(
-      primitive.vertices,
-      primitive.indices,
+      vertexArray,
+      new Uint16Array(primitive.indices),
       position,
       origin,
       rotation,
       scale,
-      gl
+      gl,
+      shader
     )
   }
 
-  initVAO() {
+  /**
+   * @param {Shader} shader
+   */
+  initVAO(shader) {
     this.vao = this.gl.createVertexArray()
     this.gl.bindVertexArray(this.vao)
 
@@ -69,22 +93,37 @@ export class Mesh {
       this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.ebo)
       this.gl.bufferData(
         this.gl.ELEMENT_ARRAY_BUFFER,
-        this.ebo,
+        this.indexArray,
         this.gl.STATIC_DRAW
       )
     }
     // Position
-    this.gl.vertexAttribPointer(0, 3, this.gl.FLOAT, false, 0, 0)
-    this.gl.enableVertexAttribArray(0)
+    const positionLoc = this.gl.getAttribLocation(
+      shader.program,
+      'vertex_position'
+    )
+    this.gl.vertexAttribPointer(positionLoc, 3, this.gl.FLOAT, false, 44, 0)
+    this.gl.enableVertexAttribArray(positionLoc)
     // Color
-    this.gl.vertexAttribPointer(1, 3, this.gl.FLOAT, false, 0, 0)
-    this.gl.enableVertexAttribArray(1)
+    const colorLoc = this.gl.getAttribLocation(shader.program, 'vertex_color')
+    this.gl.vertexAttribPointer(colorLoc, 3, this.gl.FLOAT, false, 44, 12)
+    this.gl.enableVertexAttribArray(colorLoc)
     // Texcoord
-    this.gl.vertexAttribPointer(2, 2, this.gl.FLOAT, false, 0, 0)
-    this.gl.enableVertexAttribArray(2)
+    const TextureLoc = this.gl.getAttribLocation(
+      shader.program,
+      'vertex_texcoord'
+    )
+    this.gl.vertexAttribPointer(TextureLoc, 2, this.gl.FLOAT, false, 44, 24)
+    this.gl.enableVertexAttribArray(TextureLoc)
     // Normal
-    this.gl.vertexAttribPointer(3, 3, this.gl.FLOAT, false, 0, 0)
-    this.gl.enableVertexAttribArray(3)
+    const NormalLoc = this.gl.getAttribLocation(shader.program, 'vertex_normal')
+    this.gl.vertexAttribPointer(NormalLoc, 3, this.gl.FLOAT, false, 44, 32)
+    this.gl.enableVertexAttribArray(NormalLoc)
+
+    this.gl.bindAttribLocation(shader.program, 0, 'vertex_position')
+    this.gl.bindAttribLocation(shader.program, 1, 'vertex_color')
+    this.gl.bindAttribLocation(shader.program, 2, 'vertex_texcoord')
+    this.gl.bindAttribLocation(shader.program, 3, 'vertex_normal')
     // BIND VAO 0
     this.gl.bindVertexArray(null)
   }
@@ -94,6 +133,13 @@ export class Mesh {
    */
   updateUniforms(shader) {
     shader.setMat4fv(this.ModelMatrix, 'ModelMatrix')
+  }
+
+  /**
+   * @param {vec3} position
+   */
+  move(position) {
+    vec3.add(this.position, this.position, position)
   }
 
   updateModelMatrix() {
@@ -121,10 +167,10 @@ export class Mesh {
     if (this.indexArray.length === 0) {
       this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, this.vertexArray.length)
     } else {
-      this.gl.drawArrays(
+      this.gl.drawElements(
         this.gl.TRIANGLES,
         this.indexArray.length,
-        this.gl.UNSIGNED_INT,
+        this.gl.UNSIGNED_SHORT,
         0
       )
     }

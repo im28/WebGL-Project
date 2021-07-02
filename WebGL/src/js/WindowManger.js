@@ -24,7 +24,7 @@ export class WindowManager {
     this.framebufferWidth = WINDOW_WIDTH
     this.framebufferHeight = WINDOW_HEIGHT
 
-    this.camPosition = vec3.fromValues(0.0, 0.0, 1.0)
+    this.camPosition = vec3.fromValues(0, 0, 10)
     this.worldUp = vec3.fromValues(0.0, 1.0, 0.0)
     this.camFront = vec3.fromValues(0.0, 0.0, -1.0)
     this.camera = new Camera(this.camPosition, this.worldUp)
@@ -48,6 +48,10 @@ export class WindowManager {
     document.addEventListener('keydown', (e) => {
       this.updateKeyboardInput(e)
     })
+
+    // document.addEventListener('mousemove', (e) => {
+    //   this.updateMouseInput(e)
+    // })
 
     this.initOpenGLOptions()
     this.initMatrices()
@@ -154,7 +158,8 @@ export class WindowManager {
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(1.0, 1.0, 1.0),
-        this.gl
+        this.gl,
+        this.shaders[0]
       )
     )
 
@@ -165,7 +170,8 @@ export class WindowManager {
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(1.0, 1.0, 1.0),
-        this.gl
+        this.gl,
+        this.shaders[0]
       )
     )
 
@@ -176,7 +182,8 @@ export class WindowManager {
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(-90.0, 0.0, 0.0),
         vec3.fromValues(100.0, 100.0, 100.0),
-        this.gl
+        this.gl,
+        this.shaders[0]
       )
     )
 
@@ -187,7 +194,8 @@ export class WindowManager {
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 0.0),
         vec3.fromValues(1.0, 1.0, 1.0),
-        this.gl
+        this.gl,
+        this.shaders[0]
       )
     )
 
@@ -205,7 +213,7 @@ export class WindowManager {
 
     this.models.push(
       new Model(
-        vec3.fromValues(2.0, -5.0, 2.0),
+        vec3.fromValues(2.0, -50.0, 0.0),
         this.materials[1],
         this.textures[2],
         this.textures[3],
@@ -227,7 +235,7 @@ export class WindowManager {
   initPointLights() {
     /** @type {Light[]} */
     this.pointLights = []
-    this.pointLights.push(new Light(vec3.create()))
+    this.pointLights.push(new Light(vec3.fromValues(0.0, -15, -12)))
   }
 
   initLights() {
@@ -247,7 +255,7 @@ export class WindowManager {
   updateUniforms() {
     // Update view matrix (camera)
     this.ViewMatrix = this.camera.getViewMatrix()
-
+    // console.log(this.camera.position)
     this.shaders[0].setMat4fv(this.ViewMatrix, 'ViewMatrix')
     this.shaders[0].set3fv(this.camera.getPosition(), 'cameraPos')
 
@@ -273,6 +281,25 @@ export class WindowManager {
       this.gl.canvas.width = width
       this.gl.canvas.height = height
     }
+  }
+
+  updateMouseInput(e) {
+    var rect = this.gl.canvas.getBoundingClientRect()
+    const x = e.pageX - rect.left
+    const y = e.pageY - rect.top
+    if (this.firstMouse) {
+      this.lastMouseX = x
+      this.lastMouseY = y
+      this.firstMouse = false
+    }
+
+    // Calc offset
+    this.mouseOffsetX = x - this.lastMouseX
+    this.mouseOffsetY = this.lastMouseY - y
+
+    // Set last X and Y
+    this.lastMouseX = x
+    this.lastMouseY = y
   }
 
   updateKeyboardInput(e) {
@@ -301,6 +328,7 @@ export class WindowManager {
     this.curTime = dt
     this.dt = this.curTime - this.lastTime
     this.lastTime = this.curTime
+    this.camera.updateInput(dt, this.mouseOffsetX, this.mouseOffsetY)
     this.render()
     requestAnimationFrame((d) => {
       this.update(d)
