@@ -213,7 +213,7 @@ export class WindowManager {
 
     this.models.push(
       new Model(
-        vec3.fromValues(2.0, -50.0, 0.0),
+        vec3.fromValues(2.0, 0, -10),
         this.materials[1],
         this.textures[2],
         this.textures[3],

@@ -7,7 +7,7 @@ export class Light {
     position,
     intensity = 100.0,
     color = vec3.fromValues(1, 1, 1),
-    constant = 3.0,
+    constant = 4.0,
     linear = 0.045,
     quadratic = 0.0075
   ) {
