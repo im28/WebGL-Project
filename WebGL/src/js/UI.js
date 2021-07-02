@@ -10,17 +10,16 @@ export class UI {
    * @param {Texture}  orTexDif
    * @param {Texture}  orTexSpec
    */
-  constructor(controller, title, orTexDif, orTexSpec) {
+  constructor(controller, title) {
     this.controller = controller
     this.title = title + ' Transform'
-    this.altTex = orTexDif
-    this.altTexSpec = orTexSpec
     this.material = controller.material
+
     this.panel = {
       ambient: [
-        this.material.ambient[0],
-        this.material.ambient[1],
-        this.material.ambient[2],
+        parseInt(this.material.ambient[0] * 255),
+        parseInt(this.material.ambient[1] * 255),
+        parseInt(this.material.ambient[2] * 255),
       ],
       diffuse: [
         parseInt(this.material.diffuse[0] * 255),
@@ -32,12 +31,6 @@ export class UI {
         parseInt(this.material.specular[1] * 255),
         parseInt(this.material.specular[2] * 255),
       ],
-      ChangeTexture: function () {
-        /*
-        this.controller.overrideTextureDiffuse = orTexDif
-        this.controller.overrideTextureSpecular = orTexSpec
-		*/
-      },
     }
   }
 
@@ -61,18 +54,14 @@ export class UI {
     this.gui = new dat.gui.GUI()
     this.gui.remember(this.panel)
 
-    this.multiplyColorValue()
     const f1 = this.gui.addFolder(this.title)
     f1.addColor(this.panel, 'ambient')
     f1.addColor(this.panel, 'diffuse')
     f1.addColor(this.panel, 'specular')
-    f1.add(this.panel, 'ChangeTexture')
     this.divideColorValue()
   }
 
   updateColor() {
-    this.multiplyColorValue()
-    this.divideColorValue()
     this.controller.material.ambient = this.panel.ambient
     this.controller.material.diffuse = this.panel.diffuse
     this.controller.material.specular = this.panel.specular

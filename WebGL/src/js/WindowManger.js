@@ -247,16 +247,9 @@ export class WindowManager {
       )
     )
 
-    // UI_panels.push(new ui_panel(models[2], 'Quad', textures[4], textures[5]))
-    // UI_panels.push(new ui_panel(models[1], 'Ground Plane', textures[4], textures[5]))
     /** @type {UI[]} */
     this.UI_panels = []
-    this.UI_panels.push(
-      new UI(this.models[0], 'Object 1', this.textures[1], this.textures[2])
-    )
-    this.UI_panels.push(
-      new UI(this.models[2], 'Object 2', this.textures[1], this.textures[2])
-    )
+    this.UI_panels.push(new UI(this.models[1], 'Plane Color'))
 
     this.UI_panels.forEach((m) => {
       m.renderUIPanel()
