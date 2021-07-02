@@ -18,6 +18,10 @@ export class Model {
     this.overrideTextureDiffuse = orTexDif
     this.overrideTextureSpecular = orTexSpec
     this.meshes = meshes
+
+    this.meshes.forEach((_, index) => {
+      this.meshes[index].move(position)
+    })
   }
 
   /** @param {vec3}  rotation */

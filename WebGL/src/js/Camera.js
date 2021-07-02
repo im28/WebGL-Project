@@ -19,7 +19,7 @@ export class Camera {
   constructor(position = vec3.create(), worldUp = vec3.create()) {
     this.ViewMatrix = mat4.create()
 
-    this.movementSpeed = 5
+    this.movementSpeed = 0.1
     this.sensitivity = 40
 
     this.worldUp = worldUp
@@ -75,7 +75,7 @@ export class Camera {
           this.position,
           this.position,
           this.front,
-          this.movementSpeed * dt
+          -this.movementSpeed * dt
         )
         break
       case DIRECTION.LEFT:
@@ -83,7 +83,7 @@ export class Camera {
           this.position,
           this.position,
           this.right,
-          this.movementSpeed * dt
+          -this.movementSpeed * dt
         )
         break
       case DIRECTION.RIGHT:
@@ -107,7 +107,7 @@ export class Camera {
           this.position,
           this.position,
           this.up,
-          this.movementSpeed * dt
+          -this.movementSpeed * dt
         )
         break
       default:
