@@ -115,13 +115,13 @@ export class Pyramid extends Primitive {
         vec3.fromValues(0.0, 0.0, 1.0)
       ),
       new Vertex(
-        vec3.fromValues(-0.5, -0.5, 0.0),
+        vec3.fromValues(-0.5, -0.5, 0.5),
         vec3.fromValues(0.0, 1.0, 0.0),
         vec2.fromValues(0.0, 0.0),
         vec3.fromValues(0.0, 0.0, 1.0)
       ),
       new Vertex(
-        vec3.fromValues(0.5, -0.5, 0.0),
+        vec3.fromValues(0.5, -0.5, 0.5),
         vec3.fromValues(0.0, 0.0, 1.0),
         vec2.fromValues(1.0, 0.0),
         vec3.fromValues(0.0, 0.0, 1.0)
