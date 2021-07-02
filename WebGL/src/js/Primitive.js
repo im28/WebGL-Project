@@ -12,11 +12,19 @@ import { vec2, vec3 } from 'gl-matrix'
 import { Vertex } from './Vertex'
 
 export class Primitive {
+  /**
+   * @param {vec3[]} vertices
+   * @param {number[]} indices
+   */
   constructor(vertices = [], indices = []) {
     this.vertices = vertices
     this.indices = indices
   }
 
+  /**
+   * @param {vec3[]} vertices
+   * @param {number[]} indices
+   */
   set(vertices, indices) {
     this.vertices = vertices
     this.indices = indices
@@ -256,6 +264,10 @@ export class Cube extends Primitive {
 }
 
 export class Cylinder extends Primitive {
+  /**
+   * @param {number} radius
+   * @param {number} height
+   */
   constructor(radius = 0, height = 0) {
     super()
     let x = 0.0
@@ -336,6 +348,10 @@ export class Cylinder extends Primitive {
 }
 
 export class Vase extends Primitive {
+  /**
+   * @param {number} v_levels
+   * @param {number} h_levels
+   */
   constructor(v_levels = 0, h_levels = 0) {
     super()
     this.horiz_levels = h_levels
