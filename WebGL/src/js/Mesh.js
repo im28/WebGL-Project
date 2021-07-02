@@ -2,7 +2,6 @@ import { mat4, vec3 } from 'gl-matrix'
 import { Vertex } from './Vertex'
 import { Primitive } from './Primitive'
 import { Shader } from './Shader'
-import { Primitive } from './Primitive'
 
 export class Mesh {
   // @param {Object.<string, array|object|typedarray>} vertexArray
