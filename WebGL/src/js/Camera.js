@@ -19,8 +19,8 @@ export class Camera {
   constructor(position = vec3.create(), worldUp = vec3.create()) {
     this.ViewMatrix = mat4.create()
 
-    this.movementSpeed = 0.1
-    this.sensitivity = 40
+    this.movementSpeed = 0.05
+    this.sensitivity = 0.5
 
     this.worldUp = worldUp
     this.position = position
@@ -123,6 +123,7 @@ export class Camera {
     else if (this.pitch < -80.0) this.pitch = -80.0
 
     if (this.yaw > 360.0 || this.yaw < -360.0) this.yaw = 0.0
+    console.log(offsetX, offsetY, this.pitch, this.yaw)
   }
 
   updateInput(dt, offsetX, offsetY) {

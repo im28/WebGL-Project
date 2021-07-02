@@ -36,6 +36,7 @@ export class Mesh {
     this.gl = gl
     this.initVAO(shader)
   }
+
   /**
    * @param {Primitive} primitive
    * @param {vec3} position
@@ -144,9 +145,21 @@ export class Mesh {
   updateModelMatrix() {
     this.ModelMatrix = mat4.create()
     mat4.translate(this.ModelMatrix, this.ModelMatrix, this.origin)
-    mat4.rotateX(this.ModelMatrix, this.ModelMatrix, this.rotation[0])
-    mat4.rotateY(this.ModelMatrix, this.ModelMatrix, this.rotation[1])
-    mat4.rotateZ(this.ModelMatrix, this.ModelMatrix, this.rotation[2])
+    mat4.rotateX(
+      this.ModelMatrix,
+      this.ModelMatrix,
+      Math.radians(this.rotation[0])
+    )
+    mat4.rotateY(
+      this.ModelMatrix,
+      this.ModelMatrix,
+      Math.radians(this.rotation[1])
+    )
+    mat4.rotateZ(
+      this.ModelMatrix,
+      this.ModelMatrix,
+      Math.radians(this.rotation[2])
+    )
     const newPos = vec3.sub(vec3.create(), this.position, this.origin)
     mat4.translate(this.ModelMatrix, this.ModelMatrix, newPos)
     mat4.scale(this.ModelMatrix, this.ModelMatrix, this.scale)

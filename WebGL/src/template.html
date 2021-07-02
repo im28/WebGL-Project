@@ -8,11 +8,11 @@
   <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 
-<body >
+<body oncontextmenu="return false;">
   <canvas id="canvas" height="900" width="1000"></canvas>
 
   <script id="vertex-shader" type="x-shader/x-vertex">#version 300 es
-      
+
       layout(location = 0) in vec3 vertex_position;
       layout(location = 1) in vec3 vertex_color;
       layout(location = 2) in vec2 vertex_texcoord;
@@ -40,7 +40,7 @@
 
   <script id="fragment-shader" type="x-shader/x-fragment">#version 300 es
       precision mediump float;
-      
+
       struct Material
       {
         vec3 ambient;

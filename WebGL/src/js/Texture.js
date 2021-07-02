@@ -13,8 +13,8 @@ export class Texture {
     this.image.src = url
     this.callback = () => {
       gl.bindTexture(gl.TEXTURE_2D, this.texture)
-      gl.texParameteri(this.type, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-      gl.texParameteri(this.type, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+      gl.texParameteri(this.type, gl.TEXTURE_WRAP_S, gl.REPEAT)
+      gl.texParameteri(this.type, gl.TEXTURE_WRAP_T, gl.REPEAT)
       gl.texParameteri(
         this.type,
         gl.TEXTURE_MIN_FILTER,

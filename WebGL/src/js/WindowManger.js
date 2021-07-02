@@ -49,10 +49,25 @@ export class WindowManager {
     document.addEventListener('keydown', (e) => {
       this.updateKeyboardInput(e)
     })
+    const mouseMove = (e) => {
+      this.updateMouseInput(e)
+    }
+    document.addEventListener('mousedown', (event) => {
+      if (event.button === 0) {
+        document.addEventListener('mousemove', mouseMove)
+      }
+      if (event.button === 2) {
+        event.preventDefault()
+        this.pointLights[0].position = vec3.clone(this.camera.position)
+      }
+    })
 
-    // document.addEventListener('mousemove', (e) => {
-    //   this.updateMouseInput(e)
-    // })
+    document.addEventListener('mouseup', (event) => {
+      if (event.button === 0) {
+        document.removeEventListener('mousemove', mouseMove)
+        this.firstMouse = true
+      }
+    })
 
     this.initOpenGLOptions()
     this.initMatrices()
@@ -66,6 +81,7 @@ export class WindowManager {
 
   initOpenGLOptions() {
     this.gl.enable(this.gl.DEPTH_TEST)
+
     this.gl.enable(this.gl.CULL_FACE)
     this.gl.cullFace(this.gl.BACK)
     this.gl.frontFace(this.gl.CCW)
@@ -117,8 +133,8 @@ export class WindowManager {
     this.materials.push(
       new Material(
         vec3.fromValues(0.5, 0.5, 0.5),
-        vec3.create(),
-        vec3.create(),
+        vec3.fromValues(1.0, 1.0, 1.0),
+        vec3.fromValues(1.0, 1.0, 1.0),
         0,
         1
       )
@@ -126,8 +142,8 @@ export class WindowManager {
     this.materials.push(
       new Material(
         vec3.fromValues(0.5, 0.5, 0.5),
-        vec3.create(),
-        vec3.create(),
+        vec3.fromValues(1.0, 1.0, 1.0),
+        vec3.fromValues(1.0, 1.0, 1.0),
         0,
         1
       )
@@ -135,8 +151,8 @@ export class WindowManager {
     this.materials.push(
       new Material(
         vec3.fromValues(0.5, 0.5, 0.5),
-        vec3.create(),
-        vec3.create(),
+        vec3.fromValues(1.0, 1.0, 1.0),
+        vec3.fromValues(1.0, 1.0, 1.0),
         0,
         1
       )
@@ -213,7 +229,7 @@ export class WindowManager {
 
     this.models.push(
       new Model(
-        vec3.fromValues(2.0, -50.0, 0.0),
+        vec3.fromValues(2.0, 0, -10),
         this.materials[1],
         this.textures[2],
         this.textures[3],
@@ -250,7 +266,7 @@ export class WindowManager {
   initPointLights() {
     /** @type {Light[]} */
     this.pointLights = []
-    this.pointLights.push(new Light(vec3.fromValues(0.0, -15, -12)))
+    this.pointLights.push(new Light(vec3.fromValues(0.0, 0, 0)))
   }
 
   initLights() {
@@ -309,8 +325,17 @@ export class WindowManager {
     }
 
     // Calc offset
-    this.mouseOffsetX = x - this.lastMouseX
-    this.mouseOffsetY = this.lastMouseY - y
+    if (x - this.lastMouseX > 1 || x - this.lastMouseX < -1) {
+      this.mouseOffsetX = x - this.lastMouseX
+    } else {
+      this.mouseOffsetX = 0
+    }
+
+    if (y - this.lastMouseY > 1 || y - this.lastMouseY < -1) {
+      this.mouseOffsetY = y - this.lastMouseY
+    } else {
+      this.mouseOffsetY = 0
+    }
 
     // Set last X and Y
     this.lastMouseX = x
@@ -338,12 +363,12 @@ export class WindowManager {
     }
   }
 
-  update(dt) {
+  update() {
     // console.log(this.dt)
-    this.curTime = dt
+    this.curTime = performance.now()
     this.dt = this.curTime - this.lastTime
     this.lastTime = this.curTime
-    this.camera.updateInput(dt, this.mouseOffsetX, this.mouseOffsetY)
+    this.camera.updateInput(this.dt * 0.1, this.mouseOffsetX, this.mouseOffsetY)
     this.render()
     requestAnimationFrame((d) => {
       this.update(d)
@@ -361,7 +386,7 @@ export class WindowManager {
     )
 
     // Update the uniforms
-    //this.updateUniforms()
+    this.updateUniforms()
 
     // Use a program
     this.shaders[0].use()
