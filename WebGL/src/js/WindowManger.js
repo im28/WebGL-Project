@@ -55,13 +55,13 @@ export class WindowManager {
     // })
 
     this.initOpenGLOptions()
-    // this.initMatrices()
+    this.initMatrices()
     this.initShaders()
     this.initTextures()
     this.initMaterials()
     this.initModels()
-    // this.initLights()
-    // this.initUniforms()
+    this.initLights()
+    this.initUniforms()
   }
 
   initOpenGLOptions() {
@@ -236,10 +236,10 @@ export class WindowManager {
     /** @type {UI[]} */
     this.UI_panels = []
     this.UI_panels.push(
-      new UI(this.models[2], 'Quad', this.textures[1], this.textures[2])
+      new UI(this.models[0], 'Object 1', this.textures[1], this.textures[2])
     )
     this.UI_panels.push(
-      new UI(this.models[1], 'Ground Plane', this.textures[1], this.textures[2])
+      new UI(this.models[2], 'Object 2', this.textures[1], this.textures[2])
     )
 
     this.UI_panels.forEach((m) => {
@@ -374,7 +374,7 @@ export class WindowManager {
     //Change models material values according to UIpanel colors
     this.UI_panels.forEach((m) => {
       m.updateColor()
-      console.log(this.models[1].material.ambient)
+      // console.log(this.models[1].material.ambient)
     })
 
     // End Draw
