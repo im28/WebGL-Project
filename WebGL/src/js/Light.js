@@ -5,9 +5,9 @@ import { Shader } from './Shader'
 export class Light {
   constructor(
     position,
-    intensity = 100.0,
+    intensity = 1.0,
     color = vec3.fromValues(1, 1, 1),
-    constant = 4.0,
+    constant = 1.0,
     linear = 0.045,
     quadratic = 0.0075
   ) {
