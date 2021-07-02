@@ -91,14 +91,6 @@ export class WindowManager {
     /** @type {Shader[]} */
     this.shaders = []
     this.shaders.push(new Shader(this.gl))
-
-    this.UI_panels = []
-    this.UI_panels.push(new UI())
-    this.UI_panels.push(new UI())
-
-    this.UI_panels.forEach((m) => {
-      m.Display()
-    })
   }
 
   initTextures() {
@@ -233,13 +225,18 @@ export class WindowManager {
 
     // UI_panels.push(new ui_panel(models[2], 'Quad', textures[4], textures[5]))
     // UI_panels.push(new ui_panel(models[1], 'Ground Plane', textures[4], textures[5]))
-
     /** @type {UI[]} */
     this.UI_panels = []
-    this.UI_panels.push(new UI(models[2], 'Quad', textures[4], textures[5]))
     this.UI_panels.push(
-      new UI(models[1], 'Ground Plane', textures[4], textures[5])
+      new UI(this.models[2], 'Quad', this.textures[1], this.textures[2])
     )
+    this.UI_panels.push(
+      new UI(this.models[1], 'Ground Plane', this.textures[1], this.textures[2])
+    )
+
+    this.UI_panels.forEach((m) => {
+      m.renderUIPanel()
+    })
   }
 
   initPointLights() {
@@ -336,7 +333,7 @@ export class WindowManager {
     )
 
     // Update the uniforms
-    this.updateUniforms()
+    //this.updateUniforms()
 
     // Use a program
     this.shaders[0].use()
@@ -344,6 +341,12 @@ export class WindowManager {
     // Render models
     this.models.forEach((m) => {
       m.render(this.shaders[0])
+    })
+
+    //Change models material values according to UIpanel colors
+    this.UI_panels.forEach((m) => {
+      m.updateColor()
+      console.log(this.models[1].material.ambient)
     })
 
     // End Draw
