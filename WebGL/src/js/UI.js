@@ -10,7 +10,7 @@ export class UI {
    * @param {Texture}  orTexDif
    * @param {Texture}  orTexSpec
    */
-  constructor(controller, title, gui) {
+  constructor(controller, title, gui, orTexDif, orTexSpec) {
     this.controller = controller
     this.title = title + ' Transform'
     this.material = controller.material
@@ -32,22 +32,17 @@ export class UI {
         this.material.specular[1] * 255,
         this.material.specular[2] * 255,
       ],
-    }
-  }
-
-  multiplyColorValue() {
-    for (let i = 0; i < 3; i += 1) {
-      this.panel.ambient[i] *= 255
-      this.panel.diffuse[i] *= 255
-      this.panel.specular[i] *= 255
-    }
-  }
-
-  divideColorValue() {
-    for (let i = 0; i < 3; i += 1) {
-      this.panel.ambient[i] /= 255
-      this.panel.diffuse[i] /= 255
-      this.panel.specular[i] /= 255
+      x: controller.position[0],
+      y: controller.position[1],
+      z: controller.position[2],
+      'rotation x': 0,
+      'rotation y': 0,
+      'rotation z': 0,
+      Scale: 1,
+      'Change Texture': () => {
+        this.controller.overrideTextureDiffuse = orTexDif
+        this.controller.overrideTextureSpecular = orTexSpec
+      },
     }
   }
 
@@ -58,7 +53,16 @@ export class UI {
     f1.addColor(this.panel, 'ambient')
     f1.addColor(this.panel, 'diffuse')
     f1.addColor(this.panel, 'specular')
-    this.divideColorValue()
+    f1.add(this.panel, 'x', -20, 20, 0.1)
+    f1.add(this.panel, 'y', -20, 20, 0.1)
+    f1.add(this.panel, 'z', -20, 20, 0.1)
+    f1.add(this.panel, 'rotation x', 0, 2, 0.01)
+    f1.add(this.panel, 'rotation y', 0, 2, 0.01)
+    f1.add(this.panel, 'rotation z', 0, 2, 0.01)
+    f1.add(this.panel, 'Scale', 0.5, 5, 0.01).onChange(() => {
+      this.controller.setScale(this.panel.Scale)
+    })
+    f1.add(this.panel, 'Change Texture')
   }
 
   updateColor() {
@@ -74,6 +78,11 @@ export class UI {
       vec3.create(),
       this.panel.specular
     )
-    // this.divideColorValue()
+    this.controller.setPosition([this.panel.x, this.panel.y, this.panel.z])
+    this.controller.rotate([
+      this.panel['rotation x'],
+      this.panel['rotation y'],
+      this.panel['rotation z'],
+    ])
   }
 }

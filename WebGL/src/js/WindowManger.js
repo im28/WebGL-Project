@@ -180,18 +180,6 @@ export class WindowManager {
       )
     )
 
-    meshes.push(
-      Mesh.PrimitiveConstructor(
-        new Quad(),
-        vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(1.0, 1.0, 1.0),
-        this.gl,
-        this.shaders[0]
-      )
-    )
-
     meshes2.push(
       Mesh.PrimitiveConstructor(
         new Quad(),
@@ -251,10 +239,32 @@ export class WindowManager {
     /** @type {UI[]} */
     this.UI_panels = []
     this.UI_panels.push(
-      new UI(this.models[0], 'Pyramid and Quad Color', this.gui)
+      new UI(
+        this.models[2],
+        'Quad',
+        this.gui,
+        this.textures[4],
+        this.textures[5]
+      )
     )
-    this.UI_panels.push(new UI(this.models[1], 'Plane Color', this.gui))
-    this.UI_panels.push(new UI(this.models[2], 'Quad Color', this.gui))
+    this.UI_panels.push(
+      new UI(
+        this.models[0],
+        'Pyramid',
+        this.gui,
+        this.textures[4],
+        this.textures[5]
+      )
+    )
+    this.UI_panels.push(
+      new UI(
+        this.models[1],
+        'Plane',
+        this.gui,
+        this.textures[4],
+        this.textures[5]
+      )
+    )
 
     this.UI_panels.forEach((m) => {
       m.renderUIPanel()
