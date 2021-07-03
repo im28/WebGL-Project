@@ -10,11 +10,12 @@ export class UI {
    * @param {Texture}  orTexDif
    * @param {Texture}  orTexSpec
    */
-  constructor(controller, title) {
+  constructor(controller, title, gui) {
     this.controller = controller
     this.title = title + ' Transform'
     this.material = controller.material
-
+    /** @type {dat.GUI} */
+    this.gui = gui
     this.panel = {
       ambient: [
         this.material.ambient[0] * 255,
@@ -51,8 +52,7 @@ export class UI {
   }
 
   renderUIPanel() {
-    this.gui = new dat.gui.GUI()
-    this.gui.remember(this.panel)
+    // this.gui.remember(this.panel)
 
     const f1 = this.gui.addFolder(this.title)
     f1.addColor(this.panel, 'ambient')
