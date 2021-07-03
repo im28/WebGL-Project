@@ -29,6 +29,7 @@ export class Mesh {
     this.origin = origin
     this.rotation = rotation
     this.scale = scale
+    this.initialScale = vec3.clone(scale)
 
     this.vertexArray = vertexArray
     this.indexArray = indexArray
@@ -140,6 +141,13 @@ export class Mesh {
    */
   move(position) {
     vec3.add(this.position, this.position, position)
+  }
+
+  /**
+   * @param {vec3} rotation
+   */
+  rotate(rotation) {
+    vec3.add(this.rotation, this.rotation, rotation)
   }
 
   updateModelMatrix() {

@@ -3,13 +3,18 @@ html {
   font-family: $font-family;
   background: $background-color;
   color: $font-color;
-  max-width: $page-width;
+  // max-width: $page-width;
   line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
 }
 
 body {
   margin: 0;
-  width: 100vw;
+  padding: 0;
+  box-sizing: content-box;
+  // width: 100vw;
 }
 
 #root {
@@ -19,6 +24,7 @@ body {
   flex-direction: column;
   align-self: center;
   height: 100vh;
+  margin: 0;
 }
 
 h1 {
