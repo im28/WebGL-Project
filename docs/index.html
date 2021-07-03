@@ -1,5 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>webpack Boilerplate</title><link rel="icon" href="./favicon.png"><script defer="defer" src="./js/runtime.38f3e8cde0507f337924.bundle.js"></script><script defer="defer" src="./js/main.d44e5f9ea67b887cb19c.bundle.js"></script><link href="./styles/main.f2bba769a86f152829b9.css" rel="stylesheet"></head><body oncontextmenu="return false;"><canvas id="canvas" height="900" width="1000"></canvas><script id="vertex-shader" type="x-shader/x-vertex">#version 300 es
-      
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Webgl Project</title><link rel="icon" href="./favicon.png"><script defer="defer" src="./js/runtime.226a1d32ffb9e0197496.bundle.js"></script><script defer="defer" src="./js/main.f9628e9ea193ce2038c3.bundle.js"></script><link href="./styles/main.b7fc66a72ce8449d005e.css" rel="stylesheet"></head><body oncontextmenu="return false;" style="padding: 0;"><canvas id="canvas" style="height: 100%; width: 100%;"></canvas><script id="vertex-shader" type="x-shader/x-vertex">#version 300 es
+
       layout(location = 0) in vec3 vertex_position;
       layout(location = 1) in vec3 vertex_color;
       layout(location = 2) in vec2 vertex_texcoord;
@@ -24,7 +24,7 @@
         gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(vertex_position, 1.f);
       }</script><script id="fragment-shader" type="x-shader/x-fragment">#version 300 es
       precision mediump float;
-      
+
       struct Material
       {
         vec3 ambient;
