@@ -1,4 +1,5 @@
 import { mat4, vec3 } from 'gl-matrix'
+import * as dat from 'dat.gui'
 import t1 from '@/images/container.png'
 import t2 from '@/images/container_specular.png'
 import t3 from '@/images/Floor.png'
@@ -14,15 +15,13 @@ import { Quad, Pyramid } from './Primitive'
 import { Mesh } from './Mesh'
 import { Model } from './Model'
 import { Light } from './Light'
+import { UI } from './UI'
 
 export class WindowManager {
-  constructor(title, WINDOW_WIDTH, WINDOW_HEIGHT, resizable, gl) {
+  constructor(gl) {
     // initialize the variables
     /** @type {WebGL2RenderingContext} */
     this.gl = gl
-    this.window = null
-    this.framebufferWidth = WINDOW_WIDTH
-    this.framebufferHeight = WINDOW_HEIGHT
 
     this.camPosition = vec3.fromValues(0, 0, 10)
     this.worldUp = vec3.fromValues(0.0, 1.0, 0.0)
@@ -45,15 +44,18 @@ export class WindowManager {
     this.mouseOffsetY = 0.0
     this.firstMouse = true
 
+    this.gui = new dat.GUI()
+    // this.gui.domElement.addEventListener('mouseover')
+
     document.addEventListener('keydown', (e) => {
       this.updateKeyboardInput(e)
     })
     const mouseMove = (e) => {
       this.updateMouseInput(e)
     }
-    document.addEventListener('mousedown', (event) => {
+    this.gl.canvas.addEventListener('mousedown', (event) => {
       if (event.button === 0) {
-        document.addEventListener('mousemove', mouseMove)
+        this.gl.canvas.addEventListener('mousemove', mouseMove)
       }
       if (event.button === 2) {
         event.preventDefault()
@@ -61,9 +63,9 @@ export class WindowManager {
       }
     })
 
-    document.addEventListener('mouseup', (event) => {
+    this.gl.canvas.addEventListener('mouseup', (event) => {
       if (event.button === 0) {
-        document.removeEventListener('mousemove', mouseMove)
+        this.gl.canvas.removeEventListener('mousemove', mouseMove)
         this.firstMouse = true
       }
     })
@@ -178,18 +180,6 @@ export class WindowManager {
       )
     )
 
-    meshes.push(
-      Mesh.PrimitiveConstructor(
-        new Quad(),
-        vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(0.0, 0.0, 0.0),
-        vec3.fromValues(1.0, 1.0, 1.0),
-        this.gl,
-        this.shaders[0]
-      )
-    )
-
     meshes2.push(
       Mesh.PrimitiveConstructor(
         new Quad(),
@@ -245,6 +235,40 @@ export class WindowManager {
         meshes3
       )
     )
+
+    /** @type {UI[]} */
+    this.UI_panels = []
+    this.UI_panels.push(
+      new UI(
+        this.models[2],
+        'Quad',
+        this.gui,
+        this.textures[4],
+        this.textures[5]
+      )
+    )
+    this.UI_panels.push(
+      new UI(
+        this.models[0],
+        'Pyramid',
+        this.gui,
+        this.textures[4],
+        this.textures[5]
+      )
+    )
+    this.UI_panels.push(
+      new UI(
+        this.models[1],
+        'Plane',
+        this.gui,
+        this.textures[4],
+        this.textures[5]
+      )
+    )
+
+    this.UI_panels.forEach((m) => {
+      m.renderUIPanel()
+    })
   }
 
   initPointLights() {
@@ -296,10 +320,12 @@ export class WindowManager {
       this.gl.canvas.width = width
       this.gl.canvas.height = height
     }
+    this.framebufferWidth = width
+    this.framebufferHeight = height
   }
 
   updateMouseInput(e) {
-    var rect = this.gl.canvas.getBoundingClientRect()
+    const rect = this.gl.canvas.getBoundingClientRect()
     const x = e.pageX - rect.left
     const y = e.pageY - rect.top
     if (this.firstMouse) {
@@ -361,6 +387,7 @@ export class WindowManager {
 
   render() {
     this.resizeWindow()
+    this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height)
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0)
     this.gl.clear(
@@ -380,6 +407,12 @@ export class WindowManager {
       m.render(this.shaders[0])
     })
 
+    // Change models material values according to UIpanel colors
+    this.UI_panels.forEach((m) => {
+      m.updateColor()
+      // console.log(this.models[1].material.ambient)
+    })
+
     // End Draw
     this.gl.flush()
 
@@ -388,9 +421,5 @@ export class WindowManager {
     this.gl.useProgram(null)
     // this.gl.activeTexture(null)
     this.gl.bindTexture(this.gl.TEXTURE_2D, null)
-  }
-
-  framebuffer_resize_callback(fbW, fbH) {
-    this.gl.Viewport(0, 0, fbW, fbH)
   }
 }

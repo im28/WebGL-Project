@@ -123,7 +123,6 @@ export class Camera {
     else if (this.pitch < -80.0) this.pitch = -80.0
 
     if (this.yaw > 360.0 || this.yaw < -360.0) this.yaw = 0.0
-    console.log(offsetX, offsetY, this.pitch, this.yaw)
   }
 
   updateInput(dt, offsetX, offsetY) {

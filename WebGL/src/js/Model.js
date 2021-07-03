@@ -31,6 +31,13 @@ export class Model {
     })
   }
 
+  /** @param {vec3}  rotation */
+  rotate(rotation) {
+    this.meshes.forEach((_, index) => {
+      this.meshes[index].rotate(rotation)
+    })
+  }
+
   /** @param {vec3}  position */
   setPosition(position) {
     this.meshes.forEach((_, index) => {
@@ -38,10 +45,13 @@ export class Model {
     })
   }
 
-  /** @param {vec3}  scale */
   setScale(scale) {
     this.meshes.forEach((_, index) => {
-      this.meshes[index].scale = scale
+      vec3.scale(
+        this.meshes[index].scale,
+        this.meshes[index].initialScale,
+        scale
+      )
     })
   }
 
