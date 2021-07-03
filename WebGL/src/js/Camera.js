@@ -39,9 +39,9 @@ export class Camera {
       Math.cos(Math.radians(this.yaw)) * Math.cos(Math.radians(this.pitch))
 
     this.front[1] = Math.sin(Math.radians(this.pitch))
-    this.front[2] = Math.sin(
-      Math.radians(this.yaw)) * Math.cos(Math.radians(this.pitch))
-    
+    this.front[2] =
+      Math.sin(Math.radians(this.yaw)) * Math.cos(Math.radians(this.pitch))
+
     const out = vec3.create()
     vec3.normalize(this.front, this.front)
     vec3.normalize(this.right, vec3.cross(out, this.front, this.worldUp))
